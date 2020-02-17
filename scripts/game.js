@@ -8,6 +8,7 @@
         { id: "playButton", src: "./Assets/images/btn_play.png" },
         { id: "spinButton", src: "./Assets/images/btn_spin.png" },
         { id: "resetButton", src: "./Assets/images/btn_reset.png" },
+        { id: "restartButton", src: "./Assets/images/btn_restart.png" },
         { id: "quitButton", src: "./Assets/images/btn_quit.png" },
         { id: "gameBackground", src: "./Assets/images/game_bg.png" },
         { id: "slotMachine", src: "./Assets/images/slot_machine.png" },
@@ -18,7 +19,9 @@
         { id: "lemon", src: "./Assets/images/lemon.png" },
         { id: "orange", src: "./Assets/images/orange.png" },
         { id: "seven", src: "./Assets/images/seven.png" },
-        { id: "blank", src: "./Assets/images/blank.png" }
+        { id: "blank", src: "./Assets/images/blank.png" },
+        { id: "soundSpin", src: "./Assets/sounds/spin.wav" },
+        { id: "soundGameOver", src: "./Assets/sounds/game_over.wav" }
     ];
     function Init() {
         assetManager = new createjs.LoadQueue();

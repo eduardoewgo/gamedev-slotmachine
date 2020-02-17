@@ -164,6 +164,7 @@ var scenes;
             this.Destroy();
         }
         Spin(event) {
+            createjs.Sound.play("soundSpin");
             this._spinResult = this.Reels();
             this.DisplayResults();
             this.DetermineWinnings();

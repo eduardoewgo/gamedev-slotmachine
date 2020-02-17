@@ -187,6 +187,7 @@ module scenes {
         }
 
         private Spin(event: createjs.MouseEvent): void {
+            createjs.Sound.play("soundSpin");
             this._spinResult = this.Reels();
             this.DisplayResults();
             this.DetermineWinnings();
