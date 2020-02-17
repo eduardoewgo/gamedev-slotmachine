@@ -28,14 +28,14 @@ var objects;
                     this.addEventListener("mouseout", this.MouseOut);
                 }
                 else {
-                    this.alpha = 0.3;
+                    this.alpha = 0.65;
                     this.off("mouseover", this.MouseOver);
                     this.off("mouseout", this.MouseOut);
                 }
             }
         }
         MouseOver() {
-            this.alpha = 0.85;
+            this.alpha = 0.90;
         }
         MouseOut() {
             this.alpha = 1;

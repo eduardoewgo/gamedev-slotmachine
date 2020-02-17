@@ -1,46 +1,84 @@
 (() => {
-    let canvas: HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
+    let canvas: HTMLCanvasElement;
     let stage: createjs.Stage;
-    let lblGameTitle: objects.Label;
-    let btnPlay: objects.Button;
-    let background: createjs.Bitmap;
+    let assetManager: createjs.LoadQueue;
+
+    let currentScene: objects.Scene;
+    let currentState: config.Scene;
+
+    let assetManifest = [
+        {id: "playButton", src: "./Assets/images/btn_play.png"},
+        {id: "spinButton", src: "./Assets/images/btn_spin.png"},
+        {id: "resetButton", src: "./Assets/images/btn_reset.png"},
+        {id: "quitButton", src: "./Assets/images/btn_quit.png"},
+        {id: "gameBackground", src: "./Assets/images/game_bg.png"},
+        {id: "slotMachine", src: "./Assets/images/slot_machine.png"},
+
+        {id: "banana", src: "./Assets/images/banana.png"},
+        {id: "bar", src: "./Assets/images/bar.png"},
+        {id: "cherry", src: "./Assets/images/cherry.png"},
+        {id: "grapes", src: "./Assets/images/grapes.png"},
+        {id: "lemon", src: "./Assets/images/lemon.png"},
+        {id: "orange", src: "./Assets/images/orange.png"},
+        {id: "seven", src: "./Assets/images/seven.png"},
+        {id: "blank", src: "./Assets/images/blank.png"}
+    ];
+
+
+    function Init(): void {
+        assetManager = new createjs.LoadQueue();
+        managers.Game.assetManager = assetManager;
+        assetManager.installPlugin(createjs.Sound)
+        assetManager.loadManifest(assetManifest);
+        assetManager.on("complete", Start);
+    }
 
     function Start(): void {
-        console.log(`Game started! enjoy`);
+        canvas = document.getElementsByTagName("canvas")[0];
+        managers.Game.playerBet = document.getElementsByTagName("input")[0];
         stage = new createjs.Stage(canvas);
-        createjs.Ticker.framerate = 60; // FPS
-        createjs.Ticker.on('tick', Update);
-        stage.enableMouseOver(20); // mouseover/out event
+        managers.Game.stage = stage;
+        stage.enableMouseOver(20);
+        createjs.Ticker.framerate = 60;
+        createjs.Ticker.on("tick", Update);
 
+        currentState = config.Scene.START;
+        managers.Game.currentState = config.Scene.START;
         Main();
     }
 
     function Update(): void {
+
+        if (currentState != managers.Game.currentState) {
+            currentState = managers.Game.currentState;
+            Main();
+        }
+
         stage.update();
+        currentScene.Update();
+
     }
 
     function Main(): void {
-        console.log(`Main started`);
-        lblGameTitle = new objects.Label({
-            labelString: 'Million Maker Slot Machine',
-            fontSize: '25px',
-            x: 320,
-            y: 240,
-            isCentered: true,
-            fontColour: '#ffffff'
-        });
-        btnPlay = new objects.Button({
-            imagePath: './assets/images/btn_play.png',
-            x: 320,
-            y: 400,
-            isCentered: true
-        });
-        background = new createjs.Bitmap('./assets/images/game_bg.png');
+        if (currentScene != null) {
+            currentScene.Destroy();
+            stage.removeAllChildren();
+        }
+        managers.Game.playerBet.style.display = "none";
 
-        stage.addChild(background);
-        stage.addChild(lblGameTitle);
-        stage.addChild(btnPlay);
+        switch (currentState) {
+            case config.Scene.START:
+                currentScene = new scenes.Start;
+                break;
+            case config.Scene.PLAY:
+                currentScene = new scenes.Play;
+                break;
+            case config.Scene.OVER:
+                currentScene = new scenes.Over;
+                break;
+        }
+        stage.addChild(currentScene);
     }
 
-    window.addEventListener("load", Start);
+    window.addEventListener("load", Init);
 })();

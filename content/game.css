@@ -2,3 +2,10 @@ canvas {
     border: 1px dotted black;
     border-radius: 5px;
 }
+
+#playerBet {
+    position: absolute;
+    left: 280px;
+    top: 335px;
+    width: 120px;
+}

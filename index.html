@@ -6,25 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS Section -->
     <link rel="stylesheet" href="content/game.css">
-    <title>Slot Machine - Multiply your number!</title>
+    <title>Slot Machine - Multiply your money!</title>
 </head>
 
 <body>
 <!-- Game lives inside this container -->
 <canvas width="640" height="480"></canvas>
+<input id="playerBet" type="text">
 
-<!-- Third parties JS Libraries -->
+<!-- 3rd party Libraries -->
 <script src="./node_modules/easeljs/lib/easeljs.min.js"></script>
-<script src="./node_modules/tweenjs//lib/tweenjs.min.js"></script>
+<script src="./node_modules/tweenjs/lib/tweenjs.min.js"></script>
 <script src="./node_modules/soundjs/lib/soundjs.min.js"></script>
 <script src="./node_modules/preloadjs/lib/preloadjs.min.js"></script>
 
-<!-- Objects -->
-<script src="scripts/objects/Label.js"></script>
-<script src="scripts/objects/Button.js"></script>
+<!-- Config -->
+<script src="./scripts/config/Scene.js"></script>
+<script src="./scripts/config/Constants.js"></script>
 
-<!-- JavaScript section -->
-<script src="scripts/game.js"></script>
+<!-- Managers -->
+<script src="./scripts/managers/Game.js"></script>
+
+<!-- Game Objects -->
+<script src="./scripts/objects/GameObject.js"></script>
+<script src="./scripts/objects/Scene.js"></script>
+<script src="./scripts/objects/Background.js"></script>
+<script src="./scripts/objects/Reel.js"></script>
+<script src="./scripts/objects/Label.js"></script>
+<script src="./scripts/objects/Button.js"></script>
+
+<!-- Scenes -->
+<script src="./scripts/scenes/Play.js"></script>
+<script src="./scripts/scenes/Start.js"></script>
+<script src="./scripts/scenes/Over.js"></script>
+
+<!-- Core Game Scripts -->
+<script src="./scripts/game.js"></script>
 
 </body>
 

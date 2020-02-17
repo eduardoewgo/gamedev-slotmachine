@@ -16,7 +16,7 @@ module objects {
                     this.addEventListener("mouseover", this.MouseOver);
                     this.addEventListener("mouseout", this.MouseOut);
                 } else {
-                    this.alpha = 0.3;
+                    this.alpha = 0.65;
                     this.off("mouseover", this.MouseOver);
                     this.off("mouseout", this.MouseOut);
                 }
@@ -42,7 +42,7 @@ module objects {
         }
 
         MouseOver(): void {
-            this.alpha = 0.85;
+            this.alpha = 0.90;
         }
 
         MouseOut(): void {

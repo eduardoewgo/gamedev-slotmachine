@@ -1,21 +1,17 @@
 // Scene that contains the slotmachine game
 module scenes {
     export class Play extends objects.Scene {
-        // Private instance variables
-        // backgrounds
         private _playBackground: objects.Background;
         private _slotMachine: objects.Background;
-        // labels
-        private _lblmoney: objects.Label;
-        private _lblbet: objects.Label;
-        private _lbljackpot: objects.Label;
 
-        // buttons
+        private _lblMoney: objects.Label;
+        private _lblBet: objects.Label;
+        private _lblJackpot: objects.Label;
+
         private _btnReset: objects.Button;
         private _btnSpin: objects.Button;
         private _btnQuit: objects.Button;
 
-        // numbers
         private _playerMoney: number;
         private _playerBet: number;
         private _winnings: number;
@@ -29,29 +25,21 @@ module scenes {
         private _lemons: number;
         private _sevens: number;
         private _blanks: number;
-        // x value for the reel images
+
         private _reelObjXLocation: number[];
-        // reel images
         private _reels: objects.Reel[];
 
-        // public variables
-
-        // constructor
         constructor() {
             super();
             this.Start();
         }
-
-        // private methods
-
-        // Play Methods (spin)
 
         // Displays results on the reels
         private DisplayResults(): void {
             this.RemoveOldResult();
             for (let index = 0; index < this._spinResult.length; index++) {
                 let result: string = this._spinResult[index];
-                this._reels[index] = new objects.Reel(result);
+                this._reels[index] = new objects.Reel(result, {scale: 0.75});
                 this._reels[index].x = this._reelObjXLocation[index];
                 this.addChild(this._reels[index]);
             }
@@ -168,7 +156,6 @@ module scenes {
 
         /* Utility function to show a win message and increase player money */
         private showWinMessage() {
-            createjs.Sound.play("goodboy");
             this._playerMoney += this._winnings;
             this.ResetFruitTally();
             this.checkJackPot();
@@ -176,7 +163,6 @@ module scenes {
 
         /* Utility function to show a loss message and reduce player money */
         private showLossMessage() {
-            createjs.Sound.play("poker");
             this._playerMoney -= this._playerBet;
             this.ResetFruitTally();
         }
@@ -190,8 +176,7 @@ module scenes {
             }
         }
 
-        // event handlers
-
+        // Event handlers
         public ResetEvent(event: createjs.MouseEvent): void {
             this.Reset();
         }
@@ -201,15 +186,11 @@ module scenes {
             this.Destroy();
         }
 
-        /* When the player clicks the spin button the game kicks off */
         private Spin(event: createjs.MouseEvent): void {
             this._spinResult = this.Reels();
-            // method to display results on reel
             this.DisplayResults();
             this.DetermineWinnings();
         }
-
-        //Update Methods
 
         // Changes to over scene if money is 0 or below
         private CheckMoney() {
@@ -238,8 +219,6 @@ module scenes {
             }
         }
 
-        // public methods
-
         /* Utility function to reset the player stats */
         public ResetFruitTally() {
             this._grapes = 0;
@@ -252,52 +231,49 @@ module scenes {
             this._blanks = 0;
         }
 
-        // places the objects in the play scene
-        public Main(): void {
-            this.addChild(this._playBackground);
-            this.addChild(this._slotMachine);
-
-            this.addChild(this._lblbet);
-            this.addChild(this._lbljackpot);
-            this.addChild(this._lblmoney);
-
-            this.addChild(this._btnQuit);
-            this.addChild(this._btnReset);
-            this.addChild(this._btnSpin);
-        }
-
-        // instatniates the Play scene
         public Start(): void {
-            // resets the bet input field
-            console.log(`Starting play`)
             managers.Game.playerBet.value = "";
             managers.Game.playerBet.style.display = "inline";
+
             // Background objs
-            this._playBackground = new objects.Background("playBackground");
-            this._slotMachine = new objects.Background("slotMachine");
+            this._playBackground = new objects.Background("gameBackground");
+            this._slotMachine = new objects.Background("slotMachine", {scale: 0.75, isCentered: true, x: 320, y: 240});
+
             // Label objs
-            // new objects.Label({labelString: "Loser!", x: 320, y: 240, isCentered: true});
-            this._lblbet = new objects.Label({labelString: "Bet:", x: 210, y: 340, isCentered: false});
-            this._lbljackpot = new objects.Label({labelString: "Jackpot:", x: 220, y: 55, isCentered: false})
-            this._lblmoney = new objects.Label({labelString: "Money:", x: 200, y: 273, isCentered: false});
+            this._lblJackpot = new objects.Label({
+                labelString: "Jackpot:",
+                fontColour: '#000000',
+                x: 220,
+                y: 105,
+                isCentered: false
+            });
+            this._lblBet = new objects.Label({labelString: "Bet:", x: 210, y: 320, isCentered: false});
+            this._lblMoney = new objects.Label({
+                labelString: "Money:",
+                fontColour: '#000000',
+                x: 220,
+                y: 390,
+                isCentered: false
+            });
+
             // Button objs
-            this._btnQuit = new objects.Button({imageString: "quitButton", x: 530, y: 30, isCentered: true});
-            this._btnReset = new objects.Button({imageString: "resetButton", x: 530, y: 80, isCentered: true});
-            this._btnSpin = new objects.Button({imageString: "spinButton", x: 530, y: 300, isCentered: true});
+            this._btnQuit = new objects.Button({imageString: "quitButton", x: 510, y: 10, isCentered: false});
+            this._btnReset = new objects.Button({imageString: "resetButton", x: 510, y: 100, isCentered: false});
+            this._btnSpin = new objects.Button({imageString: "spinButton", x: 510, y: 250, isCentered: false});
+
             // Reel array. The individual reels are created after each spin
             this._reels = new Array<objects.Reel>();
-            // instantiates the x coordinates for the reels
+
+            // Reel coordinates
             this._reelObjXLocation = new Array<number>();
-            this._reelObjXLocation[0] = 210;
-            this._reelObjXLocation[1] = 286;
-            this._reelObjXLocation[2] = 362;
-            // Places the slot machine in the center of the canvas
-            this._slotMachine.x = (-20);
+            this._reelObjXLocation[0] = 235;
+            this._reelObjXLocation[1] = 290;
+            this._reelObjXLocation[2] = 340;
+
             // Binding event handlers to the play scene
             this.Quit = this.Quit.bind(this);
             this.ResetEvent = this.ResetEvent.bind(this);
             this.Spin = this.Spin.bind(this);
-            // event listeners
             this._btnQuit.addEventListener("click", this.Quit);
             this._btnReset.addEventListener("click", this.ResetEvent);
 
@@ -305,15 +281,28 @@ module scenes {
             this.Reset();
         }
 
+        public Main(): void {
+            this.addChild(this._playBackground);
+            this.addChild(this._slotMachine);
+
+            this.addChild(this._lblBet);
+            this.addChild(this._lblJackpot);
+            this.addChild(this._lblMoney);
+
+            this.addChild(this._btnQuit);
+            this.addChild(this._btnReset);
+            this.addChild(this._btnSpin);
+        }
+
         public Update(): void {
             this.CheckInput();
-            this._lbljackpot.text = "Jackpot: $" + this._jackpot;
-            this._lblmoney.text = "Money: $" + this._playerMoney;
+            this._lblJackpot.text = "Jackpot: $" + this._jackpot;
+            this._lblMoney.text = "Money: $" + this._playerMoney;
             this.CheckMoney();
         }
 
         public Reset(): void {
-            this._spinResult = ["spin", "spin", "spin"];
+            this._spinResult = ["blank", "blank", "blank"];
             this.DisplayResults();
             this.ResetFruitTally();
             this._playerMoney = 1000;
