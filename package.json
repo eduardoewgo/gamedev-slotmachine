@@ -5,17 +5,12 @@
   "main": "game.js",
   "author": "Eduardo Godoy 300999807",
   "license": "MIT",
-  "scripts": {
-    "start": "lite-server",
-    "watch": "tsc --watch"
-  },
   "dependencies": {
     "createjs": "^1.0.1",
     "easeljs": "^1.0.2",
     "preloadjs": "^1.0.1",
     "soundjs": "^1.0.1",
     "tweenjs": "^1.0.2",
-    "lite-server": "^2.5.4"
   },
   "devDependencies": {
     "@types/createjs": "^0.0.29",
@@ -23,6 +18,7 @@
     "@types/preloadjs": "^0.6.32",
     "@types/soundjs": "^0.6.27",
     "@types/tweenjs": "^1.0.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "lite-server": "^2.5.4"
   }
 }
