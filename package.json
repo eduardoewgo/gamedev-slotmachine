@@ -1,8 +1,9 @@
 {
   "name": "slot-machine",
+  "description": "Web Based Awesome Slot Machine",
   "version": "1.0.0",
   "main": "game.js",
-  "author": "Eduardo",
+  "author": "Eduardo Godoy 300999807",
   "license": "MIT",
   "scripts": {
     "start": "lite-server",
@@ -13,7 +14,8 @@
     "easeljs": "^1.0.2",
     "preloadjs": "^1.0.1",
     "soundjs": "^1.0.1",
-    "tweenjs": "^1.0.2"
+    "tweenjs": "^1.0.2",
+    "lite-server": "^2.5.4"
   },
   "devDependencies": {
     "@types/createjs": "^0.0.29",
@@ -21,7 +23,6 @@
     "@types/preloadjs": "^0.6.32",
     "@types/soundjs": "^0.6.27",
     "@types/tweenjs": "^1.0.0",
-    "lite-server": "^2.5.4",
     "typescript": "^3.7.5"
   }
 }
